@@ -60,17 +60,40 @@ void insertNodeAtPosition(int data, int position) {
   }
 
   if (!head || position == 1) { 
-    insertNodeAtBeginning(data); return; 
+    insertNodeAtBeginning(data); 
+    return; 
   }
 
   Node *current = head;
+  Node *previous = NULL;
   int count = 1;
-  while (count < position - 1 && current) {
+  while (count < position && current) {
+    previous = current;
     current = current->next;
     count++;
   }
-  Node *newNode = createNode(data, current->next);
-  current->next = newNode;
+  
+  Node *newNode = createNode(data, current);
+  previous->next = newNode;
+}
+
+void deleteNodeAtPosition(int position) {
+  if (0 > position > size(head)) {
+    return;
+  }
+
+  Node *current = head;
+  Node *previous = NULL;
+  int count = 1;
+
+  while (count < position && current) {
+    previous = current;
+    current = current->next;
+    count++;
+  }
+  
+  previous->next = current->next;
+  delete current;
 }
 
 void printLinkedList(Node *head) {
@@ -85,12 +108,13 @@ void printLinkedList(Node *head) {
 
 
 int main() {
-  insertNodeAtBeginning(32);
-  insertNodeAtBeginning(69);
-  insertNodeAtBeginning(12);
-  insertNodeAtEnd(100);
-  insertNodeAtEnd(140);
-  insertNodeAtPosition(50, 6);
+  insertNodeAtBeginning(32); // 5
+  insertNodeAtBeginning(69); // 4
+  insertNodeAtBeginning(12); // 3
+  insertNodeAtBeginning(100); // 2
+  insertNodeAtBeginning(140); // 1
+  insertNodeAtPosition(50, 3);
+  deleteNodeAtPosition(4);
 
   printLinkedList(head);
 
