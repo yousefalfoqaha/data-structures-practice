@@ -33,7 +33,40 @@ void insertNodeAtBeginning(int data) {
   head = newNode; // repoint head to new node
 }
 
+void insertNodeAtEnd(int data) {
+  if(!head) {
+    insertNodeAtBeginning(data);
+    return;
+  }
+
+  Node *current = head;
+  while (current) {
+    if (!current->next) {
+      Node *newNode = createNode(data, NULL, current);
+      current->next = newNode;
+      return;
+    }
+    current = current->next;
+  }
+}
+
+void printLinkedList() {
+  Node *current = head;
+
+  int position = 1;
+  while(current) {
+    cout << position << ": " << current->data << endl;
+    current = current->next;
+    position++;
+  }
+}
+
 int main() {
 
+  insertNodeAtBeginning(3);
+  insertNodeAtBeginning(2);
+  insertNodeAtBeginning(1);
+  insertNodeAtEnd(4);
+  printLinkedList();
   return 0;
 }
