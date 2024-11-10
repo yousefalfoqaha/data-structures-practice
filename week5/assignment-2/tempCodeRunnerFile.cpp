@@ -1,0 +1,1 @@
+    // if (list1Current->next != NULL)
